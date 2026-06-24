@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-const BASE_URL = "https://dhiren.dev"; // 🔁 change this to your actual domain
+const BASE_URL = "https://dhiren.my.id"; // 🔁 change this to your actual domain
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
