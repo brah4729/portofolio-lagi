@@ -10,7 +10,7 @@ const skillGroups = [
   },
   {
     category: "Systems / Low Level",
-    skills: ["C", "NASM", "x86 Assembly", "Kernel", "NixOS", "Hyprland", "Linux"],
+    skills: ["C", "NASM", "x86 Assembly", "Kernel", "NixOS", "Linux"],
   },
   {
     category: "Tools & Other",
