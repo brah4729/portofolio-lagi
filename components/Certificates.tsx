@@ -11,6 +11,13 @@ const certificates = [
   { src: "/certificates/cert2.png", label: "Certificate 2" },
   { src: "/certificates/cert3.png", label: "Certificate 3" },
   { src: "/certificates/cert4.png", label: "Certificate 4" },
+  { src: "/certificates/cert5.png", label: "Certificate 5" },
+  { src: "/certificates/cert6.png", label: "Certificate 6" },
+  { src: "/certificates/cert7.png", label: "Certificate 7" },
+  { src: "/certificates/cert8.png", label: "Certificate 8" },
+  { src: "/certificates/cert9.png", label: "Certificate 9" },
+  { src: "/certificates/cert10.png", label: "Certificate 10" },
+  { src: "/certificates/cert11.png", label: "Certificate 11" },
 ];
 export default function Certificates() {
   const [preview, setPreview] = useState<string | null>(null);
