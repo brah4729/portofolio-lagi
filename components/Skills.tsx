@@ -1,104 +1,50 @@
-"use client";
-const skillGroups = [
-  {
-    category: "AI / ML",
-    skills: ["Python", "TensorFlow", "PyTorch", "scikit-learn", "AI Studio" ],
-  },
-  {
-    category: "Fullstack",
-    skills: ["Next.js", "React", "TypeScript", "Express.js", "Laravel", "Prisma", "PostgreSQL", "SQLite", "JWT", "MySQL"],
-  },
-  {
-    category: "Systems / Low Level",
-    skills: ["C", "NASM", "x86 Assembly", "Kernel", "NixOS", "Linux"],
-  },
-  {
-    category: "Tools & Other",
-    skills: ["Git", "GitHub", "Docker", "QEMU", "VirtualBox", "Nix", "Claude Code"],
-  },
-];
+import { PROJECTS, SKILLS } from "../lib/content";
+import SectionHead from "./SectionHead";
+
+/** Which projects use a skill, derived from the stack tags already in the content. */
+const usedIn = (tags?: string[]) =>
+  tags ? PROJECTS.filter((p) => p.stack.some((s) => tags.includes(s))).map((p) => p.title) : [];
 
 export default function Skills() {
   return (
-    <section
-      id="skills"
-      style={{
-        padding: "6rem 1.5rem",
-        maxWidth: "1100px",
-        margin: "0 auto",
-        borderTop: "1px solid var(--border)",
-      }}
-    >
-      <h2
-        className="accent-bar"
-        style={{
-          fontSize: "1.75rem",
-          fontWeight: 700,
-          color: "var(--fg)",
-          marginBottom: "3rem",
-        }}
-      >
-        Skills
-      </h2>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-          gap: "1.5rem",
-        }}
-      >
-        {skillGroups.map(({ category, skills }) => (
-          <div
-            key={category}
-            style={{
-              background: "var(--bg)",
-              border: "1px solid var(--border)",
-              borderRadius: "10px",
-              padding: "1.5rem",
-            }}
-          >
-            <p
-              className="mono"
-              style={{
-                color: "var(--accent)",
-                fontSize: "0.75rem",
-                letterSpacing: "0.1em",
-                marginBottom: "1rem",
-                textTransform: "uppercase",
-              }}
-            >
-              {category}
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-              {skills.map((skill) => (
-                <span
-                  key={skill}
-                  style={{
-                    padding: "0.3rem 0.75rem",
-                    border: "1px solid var(--border)",
-                    borderRadius: "4px",
-                    fontSize: "0.82rem",
-                    color: "var(--fg-muted)",
-                    background: "var(--panel)",
-                    transition: "all 0.15s",
-                    cursor: "default",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "var(--accent)";
-                    e.currentTarget.style.color = "var(--accent)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "var(--border)";
-                    e.currentTarget.style.color = "var(--fg-muted)";
-                  }}
-                >
-                  {skill}
-                </span>
-              ))}
+    <section id="skills" className="section" aria-labelledby="skills-title">
+      <div className="wrap">
+        <SectionHead n="02" id="skills" label="skills" title="Skills" />
+        <div className="skills">
+          {SKILLS.map((g, gi) => (
+            <div className="skills__group" key={g.title} data-reveal style={{ "--i": gi } as React.CSSProperties}>
+              <h3 className="skills__title mono">
+                {g.title}
+                <span aria-hidden="true">{String(g.skills.length).padStart(2, "0")}</span>
+              </h3>
+              <ul className="skills__list">
+                {g.skills.map((s) => {
+                  const used = usedIn(s.tags);
+                  const id = `tip-${s.name.replace(/\W/g, "")}`;
+                  return (
+                    <li
+                      key={s.name}
+                      className="skill"
+                      tabIndex={used.length ? 0 : undefined}
+                      aria-describedby={used.length ? id : undefined}
+                      data-used={used.length || undefined}
+                    >
+                      {s.name}
+                      {used.length > 0 && (
+                        <span className="skill__tip mono" id={id} role="tooltip">
+                          used in {used.join(", ")}
+                        </span>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <p className="skills__hint mono" data-reveal>
+          Underlined skills show which projects use them. Hover, focus or tap.
+        </p>
       </div>
     </section>
   );

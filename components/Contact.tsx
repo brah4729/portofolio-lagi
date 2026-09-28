@@ -1,95 +1,50 @@
-"use client";
+import { EMAIL, LINKS } from "../lib/content";
+import CopyEmail from "./CopyEmail";
+
+const ROWS = [
+  ["GitHub", LINKS.github],
+  ["Codeforces", LINKS.codeforces],
+  ["LinkedIn", LINKS.linkedin],
+] as const;
+
 export default function Contact() {
   return (
-    <section
-      id="contact"
-      style={{
-        padding: "6rem 1.5rem 8rem",
-        maxWidth: "1100px",
-        margin: "0 auto",
-        borderTop: "1px solid var(--border)",
-      }}
-    >
-      <div style={{ maxWidth: "560px" }}>
-        <h2
-          className="accent-bar"
-          style={{
-            fontSize: "1.75rem",
-            fontWeight: 700,
-            color: "var(--fg)",
-            marginBottom: "1rem",
-          }}
-        >
-          Get in Touch
-        </h2>
-
-        <p
-          style={{
-            color: "var(--fg-muted)",
-            lineHeight: 1.75,
-            marginBottom: "2.5rem",
-            fontSize: "1rem",
-          }}
-        >
-          I&apos;m open to project collaborations, internship opportunities, and just talking shop
-          about kernels, ML pipelines, or competitive programming. Hit me up.
+    <section id="contact" className="section contact" aria-labelledby="contact-title">
+      <div className="wrap">
+        <p className="label mono" data-reveal>
+          <span className="label__n">06</span> / contact
         </p>
-
-        <a
-          href="mailto:e@dhiren.my.id"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.6rem",
-            padding: "0.85rem 2rem",
-            background: "var(--accent)",
-            color: "var(--panel)",
-            textDecoration: "none",
-            fontWeight: 700,
-            borderRadius: "6px",
-            fontSize: "0.95rem",
-            marginBottom: "2.5rem",
-            transition: "all 0.2s",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "var(--fg)";
-            e.currentTarget.style.transform = "translateY(-2px)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "var(--accent)";
-            e.currentTarget.style.transform = "translateY(0)";
-          }}
-        >
-          ✉ Send an Email
-        </a>
-
-        <div style={{ display: "flex", gap: "1.25rem", flexWrap: "wrap" }}>
-          {[
-            { label: "GitHub", href: "https://github.com/brah4729" },
-            { label: "Codeforces", href: "https://codeforces.com/profile/helloxdlolidc" },
-            { label: "LinkedIn", href: "https://www.linkedin.com/in/dhiren-gilson-7aa644412/" },
-          ].map(({ label, href }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                color: "var(--fg-muted)",
-                textDecoration: "none",
-                fontSize: "0.9rem",
-                fontWeight: 600,
-                transition: "color 0.2s",
-                display: "flex",
-                alignItems: "center",
-                gap: "0.3rem",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--fg-muted)")}
-            >
-              <span style={{ color: "var(--accent)", fontFamily: "monospace" }}>&gt;</span> {label}
-            </a>
-          ))}
+        <h2 id="contact-title" className="contact__title" data-reveal>
+          Let&apos;s talk<span className="contact__dot">.</span>
+        </h2>
+        <div className="contact__grid">
+          <p className="lead" data-reveal>
+            I&apos;m open to project collaborations, internship opportunities, and just talking shop about kernels, ML pipelines, or competitive programming. Hit me up.
+          </p>
+          <div data-reveal style={{ "--i": 1 } as React.CSSProperties}>
+            <div className="contact__cta">
+              <a className="btn btn--ghost" href={`mailto:${EMAIL}`} data-magnetic>
+                Send an email
+              </a>
+              <CopyEmail />
+            </div>
+            <ul className="contact__links">
+              {ROWS.map(([k, href]) => (
+                <li key={k}>
+                  <a href={href} target="_blank" rel="noreferrer">
+                    <span className="mono" aria-hidden="true">
+                      &gt;
+                    </span>
+                    <span className="contact__k">{k}</span>
+                    <span className="contact__arrow" aria-hidden="true">
+                      ↗
+                    </span>
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>
